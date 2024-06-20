@@ -21,6 +21,15 @@ ENV GIT_USER_EMAIL=${GIT_USER_EMAIL}
 ENV SOURCE_PATH=${SOURCE_PATH}
 ENV TARGET_PATH=${TARGET_PATH}
 
+# Debugging: Print environment variables to verify they are set correctly
+RUN echo "GITHUB_TOKEN=${GITHUB_TOKEN}" && \
+    echo "GITHUB_USER=${GITHUB_USER}" && \
+    echo "GITHUB_REPO=${GITHUB_REPO}" && \
+    echo "GIT_USER_NAME=${GIT_USER_NAME}" && \
+    echo "GIT_USER_EMAIL=${GIT_USER_EMAIL}" && \
+    echo "SOURCE_PATH=${SOURCE_PATH}" && \
+    echo "TARGET_PATH=${TARGET_PATH}"
+
 # Set up Git configuration
 RUN git config --global user.name "${GIT_USER_NAME}" && \
     git config --global user.email "${GIT_USER_EMAIL}"
