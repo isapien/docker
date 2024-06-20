@@ -3,6 +3,24 @@ FROM ubuntu:20.04
 # Install required packages
 RUN apt-get update && apt-get install -y git
 
+# Define build arguments with default values
+ARG GITHUB_TOKEN="test"
+ARG GITHUB_USER="test"
+ARG GITHUB_REPO="test"
+ARG GIT_USER_NAME="test"
+ARG GIT_USER_EMAIL="test"
+ARG SOURCE_PATH="test"
+ARG TARGET_PATH="test"
+
+# Set environment variables from build arguments
+ENV GITHUB_TOKEN=${GITHUB_TOKEN}
+ENV GITHUB_USER=${GITHUB_USER}
+ENV GITHUB_REPO=${GITHUB_REPO}
+ENV GIT_USER_NAME=${GIT_USER_NAME}
+ENV GIT_USER_EMAIL=${GIT_USER_EMAIL}
+ENV SOURCE_PATH=${SOURCE_PATH}
+ENV TARGET_PATH=${TARGET_PATH}
+
 # Debugging: Print environment variables to verify they are set correctly
 RUN echo "GITHUB_TOKEN=${GITHUB_TOKEN}" && \
     echo "GITHUB_USER=${GITHUB_USER}" && \
@@ -17,7 +35,7 @@ RUN git config --global user.name "${GIT_USER_NAME}" && \
     git config --global user.email "${GIT_USER_EMAIL}"
 
 # Clone the target repository using the token
-RUN git clone https://${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git ${TARGET_PATH}
+RUN git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git ${TARGET_PATH}
 
 # Copy build output to the target repository directory
 COPY ${SOURCE_PATH}/* ${TARGET_PATH}/
@@ -26,4 +44,4 @@ COPY ${SOURCE_PATH}/* ${TARGET_PATH}/
 WORKDIR ${TARGET_PATH}
 RUN git add . && \
     git commit -m "Automated commit from Docker build" && \
-    git push https://${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git
+    git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git
