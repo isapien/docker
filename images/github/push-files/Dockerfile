@@ -3,24 +3,6 @@ FROM ubuntu:20.04
 # Install required packages
 RUN apt-get update && apt-get install -y git
 
-# Define build arguments
-ARG GITHUB_TOKEN
-ARG GITHUB_USER
-ARG GITHUB_REPO
-ARG GIT_USER_NAME
-ARG GIT_USER_EMAIL
-ARG SOURCE_PATH
-ARG TARGET_PATH
-
-# Set environment variables from build arguments
-ENV GITHUB_TOKEN=${GITHUB_TOKEN}
-ENV GITHUB_USER=${GITHUB_USER}
-ENV GITHUB_REPO=${GITHUB_REPO}
-ENV GIT_USER_NAME=${GIT_USER_NAME}
-ENV GIT_USER_EMAIL=${GIT_USER_EMAIL}
-ENV SOURCE_PATH=${SOURCE_PATH}
-ENV TARGET_PATH=${TARGET_PATH}
-
 # Debugging: Print environment variables to verify they are set correctly
 RUN echo "GITHUB_TOKEN=${GITHUB_TOKEN}" && \
     echo "GITHUB_USER=${GITHUB_USER}" && \
