@@ -35,7 +35,7 @@ RUN git config --global user.name "${GIT_USER_NAME}" && \
     git config --global user.email "${GIT_USER_EMAIL}"
 
 # Clone the target repository using the token
-RUN git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git ${TARGET_PATH}
+RUN git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git ${TARGET_PATH}
 
 # Copy build output to the target repository directory
 COPY ${SOURCE_PATH}/* ${TARGET_PATH}/
@@ -44,4 +44,4 @@ COPY ${SOURCE_PATH}/* ${TARGET_PATH}/
 WORKDIR ${TARGET_PATH}
 RUN git add . && \
     git commit -m "Automated commit from Docker build" && \
-    git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git
+    git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git
