@@ -1,5 +1,5 @@
 # Use the official Ubuntu image as a base image
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
 # Set the maintainer label
 LABEL maintainer="jordan.burke@i-sapien.com"
